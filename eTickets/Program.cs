@@ -21,11 +21,11 @@ internal class Program
         builder.Services.AddScoped<IProducersService, ProducersService>();
         builder.Services.AddScoped<ICinemaService, CinemaService>();
         builder.Services.AddScoped<IMovieService, MovieService>();
+        builder.Services.AddScoped<IOrdersService, OrdersService>();
 
         //Shopping cart service configuration
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         builder.Services.AddScoped(shoppingCart => ShoppingCart.GetShoppingCart(shoppingCart));
-
         builder.Services.AddSession();
 
         var app = builder.Build();

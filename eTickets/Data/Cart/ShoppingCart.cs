@@ -57,7 +57,7 @@ namespace eTickets.Data.Cart
 
             if (shoppingCartItem != null)
             {
-                if (shoppingCartItem.Amount >= 1)
+                if (shoppingCartItem.Amount > 1)
                 {
                     shoppingCartItem.Amount--;
                 } else
@@ -77,6 +77,13 @@ namespace eTickets.Data.Cart
         {
             double total = _context.ShoppingCartItems.Where(x => x.ShoppingCartId == ShoppingCartId).Select(x => x.Movie.Price * x.Amount).Sum();
             return total;
+        }
+
+        public async Task ClearShoppingCartAsync()
+        {
+            var items = await _context.ShoppingCartItems.Where(x => x.ShoppingCartId == ShoppingCartId).ToListAsync();
+            _context.ShoppingCartItems.RemoveRange(items);
+            await _context.SaveChangesAsync();
         }
     }
 }

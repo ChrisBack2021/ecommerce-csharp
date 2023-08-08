@@ -41,6 +41,24 @@
                         <input name="searchString" type="text" class="form-control" placeholder="Search for a movie..."/>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                     </form>
+                    @*Below is to invoke the ViewComponent located in Data/ViewComponents/ShoppingCartSummary*@
+                    <ul class="navbar-nav">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </ul>
+
+                  @*  User Profile Section*@
+                  <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                          <i class="bi bi-person-badge"></i> Hello User
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="profile-btn">
+                          <li>
+                              <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+                                  <i class="bi bi-list"></i>Orders
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
                 </div>
             </div>
         </nav>

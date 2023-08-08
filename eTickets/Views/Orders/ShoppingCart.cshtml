@@ -35,7 +35,7 @@
                                 <i class="bi bi-cart-dash"></i>
                             </a>
                             |
-                            <a class="text-success" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Movie.Id">
+                            <a class="text-success" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Movie.Id">
                                 <i class="bi bi-cart-plus"></i>
                             </a>
                         </td>
@@ -54,13 +54,11 @@
             </tfoot>
         </table>
 
-        <div class="text-right">
+        <div class="text-center">
             <div class="btn-group">
-                @*<a class="btn btn-outline-primary" asp-action="CompleteOrder">
-                Complete order
-                </a>*@
-                <div id="paypal-btn"></div>
-                <span style="padding:5px"></span>
+                <a class="btn btn-outline-primary" asp-action="CompleteOrder">
+                    Complete order
+                </a>
                 <a class="btn btn-outline-success" asp-controller="Movies" asp-action="Index">
                     Add more items
                 </a>
