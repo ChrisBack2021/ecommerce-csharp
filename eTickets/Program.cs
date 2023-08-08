@@ -18,6 +18,8 @@ internal class Program
         //Services Configuration
         builder.Services.AddScoped<IActorsService, ActorsService>();
         builder.Services.AddScoped<IProducersService, ProducersService>();
+        builder.Services.AddScoped<ICinemaService, CinemaService>();
+        builder.Services.AddScoped<IMovieService, MovieService>();
 
         var app = builder.Build();
 
