@@ -32,7 +32,7 @@ namespace eTickets.Controllers
                 return View("Index", filteredResult);
             }
 
-            return View(allMovies);
+            return View("Index", allMovies);
         }
 
         //Get: Movies/Details/id

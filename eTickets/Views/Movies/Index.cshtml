@@ -52,7 +52,7 @@
                                     <i class="bg-info bi-eye-fill"></i>Show Details
                                 </a>
                                 @*ToString("c") makes it to currency. its an overload provided by c#*@
-                                <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i>Add to Cart (@item.Price.ToString("c"))</a>
+                                <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">><i class="bi bi-cart-plus"></i>Add to Cart (@item.Price.ToString("c"))</a>
                             </p>
                         </div>
                     </div>
