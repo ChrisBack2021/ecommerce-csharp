@@ -1,6 +1,9 @@
 using eTickets.Data;
 using eTickets.Data.Cart;
 using eTickets.Data.Services;
+using eTickets.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -28,6 +31,15 @@ internal class Program
         builder.Services.AddScoped(shoppingCart => ShoppingCart.GetShoppingCart(shoppingCart));
         builder.Services.AddSession();
 
+        // Authentication and authorization
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+        builder.Services.AddMemoryCache();
+        builder.Services.AddSession();
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        });
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -46,6 +58,9 @@ internal class Program
         // Added below because we of line29 ** builder.Services.AddSession() **
         app.UseSession();
 
+        // Authentication & Authorization
+        app.UseAuthentication();
+
         app.UseAuthorization();
 
         app.MapControllerRoute(
@@ -54,6 +69,7 @@ internal class Program
 
         // seed database
         AppDbInitializer.Seed(app);
+        AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 
 app.Run();
     }
