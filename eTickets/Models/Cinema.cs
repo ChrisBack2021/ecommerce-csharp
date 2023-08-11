@@ -13,7 +13,7 @@ namespace eTickets.Models
         [Display(Name = "Cinema Name")]
         [Required]
         public string Name { get; set; }
-        [Display(Name = "Cinema desc")]
+        [Display(Name = "Cinema description")]
         [Required]
         public string Description { get; set; }
 

@@ -15,7 +15,7 @@ namespace eTickets.Models
         public string Description { get; set; }
         public double Price { get; set; }
 
-        [Display(Name="Movie pic")]
+        [Display(Name="Movie picture URL")]
         public string ImageURL { get; set; }
         public DateTime StartDate { get; set; }
 

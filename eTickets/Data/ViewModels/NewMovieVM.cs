@@ -14,6 +14,7 @@ namespace eTickets.Models
 
         [Required(ErrorMessage = "Description is required")]
         [Display(Name = "Movie Description")]
+        [MinLength(100, ErrorMessage = "The description must be atleast 100 characters long")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Price is required")]

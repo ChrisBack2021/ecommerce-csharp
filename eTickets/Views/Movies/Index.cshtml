@@ -24,11 +24,11 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="@item.ImageURL" width="100%" alt="@item.Name" />
+                        <img src="@item.ImageURL" class="w-100 h-100" alt="@item.Name" />
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
-                            <p class="card-text">@item.Description</p>
+                            <p class="card-text truncate">@item.Description</p>
                             <p class="card-text"><b>Cinema: </b>@item.Cinema.Name</p>
                             <p class="card-text"><b>Category: </b>@item.MovieCategory</p>
                             <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
@@ -50,10 +50,11 @@
                     </div>
                     <div class="cold-md-12">
                         <div class="card-footer">
-                            <p class="card-text">
-                                <a class="btn btn-outline-primary float-end" asp-action="Details" asp-route-id="@item.Id">
-                                    <i class="bg-info bi-eye-fill"></i>Show Details
+                            <p  class="card-text p-footer">
+                                <a  class="btn btn-outline-primary float-end detail-btn" asp-action="Details" asp-route-id="@item.Id">
+                                    <i class="bg-info bi-eye-fill"></i>Details
                                 </a>
+                                
                                 @*ToString("c") makes it to currency. its an overload provided by c#*@
                                 <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id"><i class="bi bi-cart-plus"></i>Add to Cart (@item.Price.ToString("c"))</a>
                             </p>
@@ -65,5 +66,35 @@
     }
 </div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            function updateClasses() {
+                var screenWidth = $(window).width();
+                if (screenWidth >= 700 && screenWidth <= 1000) {
+                    $(".detail-btn").removeClass("float-end")
+                    $(".p-footer").addClass("d-flex justify-content-around");
+                    $(".detail-btn").addClass("me-2");
+                } else {
+                    $(".detail-btn").addClass("float-end")
+                    $(".p-footer").removeClass("d-flex justify-content-around");
+                    $(".detail-btn").removeClass("me-2");
+                }
+            }
+
+
+            // Initial update on page load
+            updateClasses();
+
+            // Update classes on window resize
+            $(window).resize(function () {
+                updateClasses();
+            });
+
+            
+        });
+
+    </script>
+}
 
 @await Html.PartialAsync("_CreateItem", "Movies")

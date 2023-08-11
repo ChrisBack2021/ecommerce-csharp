@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace eTickets.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin)]
+
     public class OrdersController : Controller
     {
         private readonly IMovieService _movieService;

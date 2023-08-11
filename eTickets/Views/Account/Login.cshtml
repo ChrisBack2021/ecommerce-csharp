@@ -5,11 +5,11 @@
     ViewData["Title"] = "Log in to your account";
 }
 
-<div class="row">
-    <div class="col-md-6 offset-3">
-        <p>
+<div class="row justify-content-center m-auto">
+    <div class="col-md-5">
+        <div class="text-center mb-4">
             <h4>Log in to your account</h4>
-        </p>
+        </div>
 
         @if (TempData["Error"] != null)
         {
@@ -19,21 +19,21 @@
         }
 
         <div class="row">
-            <div class="col-md-8 offset-2">
+            <div>
                 <form asp-action="Login">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-1">
                         <label asp-for="EmailAddress" class="control-label"></label>
                         <input asp-for="EmailAddress" class="form-control"/>
                         <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-1">
                         <label asp-for="Password" class="control-label"></label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-1">
                         <input class="btn btn-outline-success float-end" type="submit" value="Log in"/>
                         <a class="btn btn-outline-secondary" asp-controller="Movies" asp-action="Index">Cancel</a>
                     </div>
