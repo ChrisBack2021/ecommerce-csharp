@@ -20,10 +20,29 @@ namespace eTickets.Controllers
         }
         // Include is for foreign key.
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg=1)
         {
             var allMovies = await _service.GetAllAsync(n => n.Cinema);
-            return View(allMovies);
+
+            List<Movie> movies = allMovies.ToList();
+
+            const int pageSize = 6;
+            if (pg < 1)
+                pg = 1;
+
+            int movieCount = movies.Count();
+
+            var pager = new Pager(movieCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = movies.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            return View(data);
+
+/*            return View(allMovies);*/
         }
         // THIS IS SEARCH BAR
         [AllowAnonymous]

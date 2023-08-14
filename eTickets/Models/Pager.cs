@@ -1,4 +1,4 @@
-﻿/*namespace eTickets.Models
+﻿namespace eTickets.Models
 {
     public class Pager
     {
@@ -19,7 +19,7 @@
 
         }
 
-        public Pager(int totalMovies, int page, int pageSize = 10)
+        public Pager(int totalMovies, int page, int pageSize = 6)
         {
             int totalPages = (int)Math.Ceiling((decimal)totalMovies / (decimal)pageSize);
             int currentPage = page;
@@ -51,4 +51,3 @@
         }
     }
 }
-*/

@@ -1,8 +1,17 @@
 ﻿@model IEnumerable<Movie>
 
-    @{
-        ViewData["Title"] = "List of Movies";
+@{
+    ViewData["Title"] = "List of Movies";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
     }
+}
 
 <div class="row">
     @foreach (var item in Model)
@@ -35,13 +44,15 @@
                             <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
                             <p>
                                 <b>Status:</b>
-                                @if(DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+                                @if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
                                 {
                                     <span class="badge bg-success text-white">AVAILABLE</span>
-                                } else if(DateTime.Now > item.EndDate)
+                                }
+                                else if (DateTime.Now > item.EndDate)
                                 {
                                     <span class="badge bg-danger text-white">EXPIRED</span>
-                                } else
+                                }
+                                else
                                 {
                                     <span class="badge bg-primary text-white">UPCOMING</span>
                                 }
@@ -50,13 +61,13 @@
                     </div>
                     <div class="cold-md-12">
                         <div class="card-footer">
-                            <p  class="card-text p-footer">
-                                <a  class="btn btn-outline-primary float-end detail-btn" asp-action="Details" asp-route-id="@item.Id">
+                            <p class="card-text p-footer">
+                                <a class="btn btn-outline-primary float-end detail-btn" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"> </i>Details
                                 </a>
-                                
-                                @*ToString("c") makes it to currency. its an overload provided by c#*@
-                                <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id"><i class="bi bi-cart-plus"></i>Add to Cart (@item.Price.ToString("c"))</a>
+
+
+                                <a class="btn btn-success text-white @((DateTime.Now > item.EndDate) ? "disabled" : "")" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id"><i class="bi bi-cart-plus"></i>Add to Cart (@item.Price.ToString("c"))</a>
                             </p>
                         </div>
                     </div>
@@ -65,6 +76,8 @@
         </div>
     }
 </div>
+
+<partial name="_pager" model="@pager" />
 
 @section Scripts{
     <script>
@@ -90,7 +103,7 @@
                 updateClasses();
             });
 
-            
+
         });
 
     </script>
