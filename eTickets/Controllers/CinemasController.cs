@@ -1,6 +1,7 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
 using eTickets.Data.Static;
+using eTickets.Data.ViewModels;
 using eTickets.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,13 +31,13 @@ namespace eTickets.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Logo, Name, Description")] Cinema cinema)
+        public async Task<IActionResult> Create(CinemaVM cinema)
         {
             if (!ModelState.IsValid)
             {
                 return View(cinema);
             }
-            await _service.AddAsync(cinema);
+            await _service.AddNewCinemaAsync(cinema);
             return RedirectToAction(nameof(Index));
         }
 
@@ -53,18 +54,31 @@ namespace eTickets.Controllers
         //Edit Cinema/Details/1
         public async Task<IActionResult> Edit(int id)
         {
-            var cinemaDetails = await _service.GetByIdAsync(id);
+            var cinemaDetails = await _service.GetCinemaByIdAsync(id);
             if (cinemaDetails == null)
                 return View("NotFound");
+
+            var response = new CinemaVM()
+            {
+                Id = cinemaDetails.Id,
+                Name = cinemaDetails.Name,
+                Description = cinemaDetails.Description,
+            };
+
             return View(cinemaDetails);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, Logo, Name, Description")]Cinema cinema)
+        public async Task<IActionResult> Edit(int id, CinemaVM cinema)
         {
+            if (id != cinema.Id)
+            {
+                return View("NotFound");
+            }
+
             if (!ModelState.IsValid)
                 return View(cinema);
-            await _service.UpdateAsync(id, cinema);
+            await _service.UpdateCinemaAsync(cinema);
             return RedirectToAction(nameof(Index));
         }
         

@@ -1,4 +1,5 @@
 ﻿using eTickets.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
@@ -45,5 +46,7 @@ namespace eTickets.Data.Base
 
             await _context.SaveChangesAsync();
         }
+
+
     }
 }

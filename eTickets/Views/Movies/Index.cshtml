@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="@item.ImageURL" class="w-100 h-100" alt="@item.Name" />
+                        <img src="~/Images/@item.ImageURL" class="w-100 h-100" alt="@item.Name" />
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
@@ -52,7 +52,7 @@
                         <div class="card-footer">
                             <p  class="card-text p-footer">
                                 <a  class="btn btn-outline-primary float-end detail-btn" asp-action="Details" asp-route-id="@item.Id">
-                                    <i class="bg-info bi-eye-fill"></i>Details
+                                    <i class="bi bi-eye-fill"> </i>Details
                                 </a>
                                 
                                 @*ToString("c") makes it to currency. its an overload provided by c#*@
@@ -81,7 +81,6 @@
                     $(".detail-btn").removeClass("me-2");
                 }
             }
-
 
             // Initial update on page load
             updateClasses();

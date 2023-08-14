@@ -9,7 +9,7 @@ namespace eTickets.Data
 {
     public class AppDbInitializer
     {
-        public static void Seed(IApplicationBuilder applicationBuilder)
+/*        public static void Seed(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
@@ -51,71 +51,71 @@ namespace eTickets.Data
                     context.SaveChanges();
                 }
                 //Actors
-                if (!context.Actors.Any())
+*//*                if (!context.Actors.Any())
                 {
                     context.Actors.AddRange(new List<Actor>()
                     {
                         new Actor()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/actors/actor-1.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/actors/actor-1.jpeg",
                         FullName = "Actor 1",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         },
                         new Actor()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/actors/actor-2.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/actors/actor-2.jpeg",
                         FullName = "Actor 2",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         },
                         new Actor()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/actors/actor-3.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/actors/actor-3.jpeg",
                         FullName = "Actor 3",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         },
                         new Actor()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/actors/actor-4.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/actors/actor-4.jpeg",
                         FullName = "Actor 4",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         }
                     });
                     context.SaveChanges();
-                }
+                }*//*
                 //Producers
-                if (!context.Producers.Any())
+*//*                if (!context.Producers.Any())
                 {
                     context.Producers.AddRange(new List<Producer>()
                     {
                         new Producer()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/producers/producer-1.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/producers/producer-1.jpeg",
                         FullName = "Producer 1",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         },
                         new Producer()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/producers/producer-2.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/producers/producer-2.jpeg",
                         FullName = "Producer 2",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         },
                         new Producer()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/producers/producer-3.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/producers/producer-3.jpeg",
                         FullName = "Producer 3",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         },
                         new Producer()
                         {
-                        ProfilePictureURL = "https://dotnethow.net/images/producers/producer-4.jpeg",
+                        ProfilePicture = "https://dotnethow.net/images/producers/producer-4.jpeg",
                         FullName = "Producer 4",
-                        Bio = "Biography of actors"
+                        Biography = "Biographygraphy of actors"
                         }
                     });
                     context.SaveChanges();
-                }
+                }*//*
                 //Movies
-                if (!context.Movies.Any())
+*//*                if (!context.Movies.Any())
                 {
                     context.Movies.AddRange(new List<Movie>()
                     {
@@ -169,9 +169,9 @@ namespace eTickets.Data
                         },
                     });
                     context.SaveChanges();
-                }
+                }*//*
                 //Actors & Movies
-                if (!context.Actors_Movies.Any())
+*//*                if (!context.Actors_Movies.Any())
                 {
                     context.Actors_Movies.AddRange(new List<Actor_Movie>()
                     {
@@ -197,10 +197,10 @@ namespace eTickets.Data
                         }
                     });
                     context.SaveChanges();
-                }
+                }*//*
             }
         }
-
+*/
         public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())

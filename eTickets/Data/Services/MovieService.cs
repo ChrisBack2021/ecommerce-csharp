@@ -1,6 +1,7 @@
 ﻿using eTickets.Data.Base;
 using eTickets.Data.ViewModels;
 using eTickets.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Data.Services
@@ -8,19 +9,39 @@ namespace eTickets.Data.Services
     public class MovieService : EntityBaseRepository<Movie>, IMovieService
     {
         private readonly AppDbContext _context;
-        public MovieService(AppDbContext context) : base(context)
+
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public MovieService(AppDbContext context, IWebHostEnvironment webHostEnvironment) : base(context)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
+        public string UploadFile(NewMovieVM data)
+        {
+            string fileName = null;
+            if (data.ImageURL != null)
+            {
+                string uploadDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images");
+                fileName = Guid.NewGuid().ToString() + "-" + data.ImageURL.FileName;
+                string filePath = Path.Combine(uploadDirectory, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                     data.ImageURL.CopyTo(fileStream);
+                }
+            }
+            return fileName;
         }
 
         public async Task AddNewMovieAsync(NewMovieVM data)
         {
+            string stringFileName = UploadFile(data);
             var newMovie = new Movie()
             {
                 Name = data.Name,
                 Description = data.Description,
                 Price = data.Price,
-                ImageURL = data.ImageURL,
+                ImageURL = stringFileName,
                 CinemaId = data.CinemaId,
                 StartDate = data.StartDate,
                 EndDate = data.EndDate,
@@ -71,12 +92,13 @@ namespace eTickets.Data.Services
         {
             var dbMovie = await _context.Movies.FirstOrDefaultAsync(n => n.Id == data.Id);
 
+            string stringFileName = UploadFile(data);
             if (dbMovie != null)
             {
                 dbMovie.Name = data.Name;
                 dbMovie.Description = data.Description;
                 dbMovie.Price = data.Price;
-                dbMovie.ImageURL = data.ImageURL;
+                dbMovie.ImageURL = stringFileName;
                 dbMovie.CinemaId = data.CinemaId;
                 dbMovie.StartDate = data.StartDate;
                 dbMovie.EndDate = data.EndDate;

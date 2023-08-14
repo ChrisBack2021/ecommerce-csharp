@@ -1,6 +1,7 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
 using eTickets.Data.Static;
+using eTickets.Data.ViewModels;
 using eTickets.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,7 @@ namespace eTickets.Controllers
             _service = service;
         }
 
-        // Synchronous method
-        /*        public IActionResult Index()
-                {
-                    var allProducers = _context.Producers.ToList();
-                    return View();
-                }*/
+
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
@@ -37,13 +33,13 @@ namespace eTickets.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureURL,Bio")] Producer producer)
+        public async Task<IActionResult> Create(ProducerVM producer)
         {
             if (!ModelState.IsValid)
             {
                 return View(producer);
             }
-            await _service.AddAsync(producer);
+            await _service.AddNewProducerAsync(producer);
             return RedirectToAction(nameof(Index));
         }
 
@@ -51,26 +47,45 @@ namespace eTickets.Controllers
         //GET: producers/details/1
         public async Task<IActionResult> Details(int id)
         {
-            var producerDetails = await _service.GetByIdAsync(id);
+            var producerDetails = await _service.GetProducerByIdAsync(id);
             if (producerDetails == null) return View("NotFound");
+
+
+
+
+
             return View(producerDetails);
         }
 
         //GET: producers/edit/1
         public async Task<IActionResult> Edit(int id)
         {
-            var producerDetails = await _service.GetByIdAsync(id);
+            var producerDetails = await _service.GetProducerByIdAsync(id);
             if (producerDetails == null) return View("NotFound");
-            return View(producerDetails);
+
+            var response = new ProducerVM()
+            {
+                Id = producerDetails.Id,
+                FullName = producerDetails.FullName,
+                Biography = producerDetails.Biography
+            };
+
+            return View(response);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, ProfilePictureURL, FullName, Bio")]Producer producer)
+        public async Task<IActionResult> Edit(int id,ProducerVM producer)
         {
+            if (id != producer.Id)
+            {
+                return View("NotFound");
+            }
+
+
             if (!ModelState.IsValid)
             {
                 return View(producer);
             }
-            await _service.UpdateAsync(id, producer);
+            await _service.UpdateProducerAsync(producer);
             return RedirectToAction(nameof(Index));
         }
 

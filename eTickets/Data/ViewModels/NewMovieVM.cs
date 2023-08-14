@@ -23,7 +23,7 @@ namespace eTickets.Models
 
         [Required(ErrorMessage = "Movie Poster URL is required")]
         [Display(Name = "Movie Poster URL")]
-        public string ImageURL { get; set; }
+        public IFormFile ImageURL { get; set; }
 
         [Required(ErrorMessage = "Movie start date is required")]
         [Display(Name = "Start date")]

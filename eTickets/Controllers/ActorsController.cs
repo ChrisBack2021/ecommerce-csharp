@@ -1,6 +1,7 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
 using eTickets.Data.Static;
+using eTickets.Data.ViewModels;
 using eTickets.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,13 +33,14 @@ namespace eTickets.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureURL,Bio")]Actor actor)
+        public async Task<IActionResult> Create(ActorVM actor)
         {
             if (!ModelState.IsValid)
             {
                 return View(actor);
             }
-            await _service.AddAsync(actor);
+
+            await _service.AddNewActorAsync(actor);
             return RedirectToAction(nameof(Index));
         }
 
@@ -54,19 +56,32 @@ namespace eTickets.Controllers
         //Get: Actors/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
-            var actorDetails = await _service.GetByIdAsync(id);
+            var actorDetails = await _service.GetActorByIdAsync(id);
             if (actorDetails == null) return View("NotFound");
-            return View(actorDetails);
+
+            var response = new ActorVM()
+            {
+                Id = actorDetails.Id,
+                FullName = actorDetails.FullName,
+                Biography = actorDetails.Biography
+            };
+
+            return View(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,ProfilePictureURL,Bio")] Actor actor)
+        public async Task<IActionResult> Edit(int id, ActorVM actor)
         {
+            if (id != actor.Id)
+            {
+                return View("NotFound");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(actor);
             }
-            await _service.UpdateAsync(id, actor);
+            await _service.UpdateActorAsync(actor);
             return RedirectToAction(nameof(Index));
         }
 

@@ -13,9 +13,9 @@
         <table class="table truncate-table">
             <thead>
                 <tr class="text-center">
-                    <th class="text-center">@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.ProfilePicture)</th>
                     <th class="text-center">@Html.DisplayNameFor(model => model.FullName)</th>
-                    <th class="text-center">@Html.DisplayNameFor(model => model.Bio)</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.Biography)</th>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <th class="text-center">Actions</th>
@@ -27,13 +27,13 @@
                 {
                     <tr>
                         <td class="align-middle text-center">
-                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FullName" style="max-width: 100px"/>
+                            <img class="rounded-circle" src="~/Images/@item.ProfilePicture" alt="@item.FullName" style="max-width: 100px" />
                         </td>
                         <td class="align-middle text-center">
                             @Html.DisplayFor(modelItem => item.FullName)
                         </td>
                         <td class="align-middle text-center truncate-td">
-                            @Html.DisplayFor(modelItem => item.Bio)
+                            @Html.DisplayFor(modelItem => item.Biography)
                         </td>
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {

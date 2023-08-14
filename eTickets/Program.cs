@@ -68,7 +68,7 @@ internal class Program
             pattern: "{controller=Movies}/{action=Index}/{id?}");
 
         // seed database
-        AppDbInitializer.Seed(app);
+/*        AppDbInitializer.Seed(app);*/
         AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 
 app.Run();
