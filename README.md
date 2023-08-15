@@ -14,19 +14,16 @@
  
  **Paypal** -- Not a real PayPal account. Made using PayPal developer mode SandBox to check if API is connected properly. You are able to use this account to test the PayPal functionality.
  
- Username - sb-vdi1d27031093@personal.example.com
- 
- Password - 8.!K@rK_
+ Username -- sb-vdi1d27031093@personal.example.com
+ Password -- 8.!K@rK_
 
  **Admin user** -- Has access to everything the site has to offer and is able to see a list of all other users.
  
- Username - admin@moviefinder.com
- 
- Password - movieFinder@123!
+ Username -- admin@moviefinder.com
+ Password -- movieFinder@123!
  
  **Normal User** -- Please note that you do not have to use the normal user account below. You are able to register your own normal user account and it will have the same functionality as below.
  
- Username - user@etickets.com
- 
- Password - movieFinder@123!
+ Username -- user@etickets.com
+ Password -- movieFinder@123!
  
