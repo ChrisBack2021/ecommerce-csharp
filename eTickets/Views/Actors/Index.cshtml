@@ -5,6 +5,17 @@
 @*Define ViewData*@
 @{
     ViewData["Title"] = "List of Actors";
+    ViewData["Controller"] = "Actors";
+    ViewData["Action"] = "Index";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
 @*Write Code*@
@@ -52,8 +63,12 @@
         </table>
     </div>
 </div>
+c
 
 @await Html.PartialAsync("_CreateItem", "Actors")
+<div style="position: absolute; bottom: 50px; width: 100%">
+    <partial name="_pager" model="@pager" />
+</div>
 
 @section Scripts{
 <script>

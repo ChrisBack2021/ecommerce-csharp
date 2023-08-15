@@ -1,4 +1,8 @@
 ﻿@model Pager
+@{
+    var controller = ViewData["Controller"] as string;
+    var action = ViewData["Action"] as string;
+}
 
 
 <div class="container">
@@ -9,10 +13,10 @@
             @if (Model.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-asp-controller="Movies" asp-action="Index" asp-route-pg="1">First</a>
+                    <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-pg="1">First</a>
                 </li>
                 <li>
-                    <a class="page-link" asp-asp-controller="Movies" asp-action="Index" asp-route-pg="@(Model.CurrentPage - 1)">Previous</a>
+                    <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-pg="@(Model.CurrentPage - 1)">Previous</a>
                 </li>
             }
 
@@ -20,17 +24,17 @@
             @for (var pge = Model.StartPage; pge <= Model.EndPage; pge++)
             {
                 <li class="page-item @(pge == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="Movies" asp-action="Index" asp-route-pg="@pge"> @pge </a>
+                    <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-pg="@pge"> @pge </a>
                 </li>
             }
 
             @if (Model.CurrentPage < Model.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-asp-controller="Movies" asp-action="Index" asp-route-pg="@(Model.CurrentPage + 1)">Next</a>
+                    <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-pg="@(Model.CurrentPage + 1)">Next</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" asp-asp-controller="Movies" asp-action="Index" asp-route-pg="@(Model.TotalPages)">Last</a>
+                    <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-pg="@(Model.TotalPages)">Last</a>
                 </li>
             }
 

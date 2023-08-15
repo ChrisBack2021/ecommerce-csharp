@@ -19,10 +19,29 @@ namespace eTickets.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg = 1)
         {
-            var data = await _service.GetAllAsync();
+            var allActors = await _service.GetAllAsync();
+
+            List<Actor> actors = allActors.ToList();
+
+            const int pageSize = 6;
+            if (pg < 1)
+                pg = 1;
+
+            int actorCount = actors.Count();
+
+            var pager = new Pager(actorCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = actors.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
             return View(data);
+
+            /*return View(data);*/
         }
 
  

@@ -19,10 +19,28 @@ namespace eTickets.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg = 1)
         {
             var allCinemas = await _service.GetAllAsync();
-            return View(allCinemas);
+
+            List<Cinema> cinemas = allCinemas.ToList();
+
+            const int pageSize = 6;
+            if (pg < 1)
+                pg = 1;
+
+            int movieCount = cinemas.Count();
+
+            var pager = new Pager(movieCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            var data = cinemas.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+            return View(data);
+
         }
 
         public IActionResult Create()
