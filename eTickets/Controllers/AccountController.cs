@@ -80,12 +80,11 @@ namespace eTickets.Controllers
             {
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
                 return View("RegisterCompleted");
+            } else
+            {
+                TempData["Error"] = "Passwords require an uppercase character, lowercase character, a digit, a non-alphanumeric character and must be 6 characters long minimum.";
+                return View(registerVM);
             }
-
-/*            List<IdentityError> errorList = newUserResponse.Errors.ToList();
-            var errors = string.Join(",", errorList.Select(e => e.Description));
-            TempData["Error"] = errors;*/
-            return View(registerVM);
         }
 
         [HttpPost]
